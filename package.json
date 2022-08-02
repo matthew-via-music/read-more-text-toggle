@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://matthew-via-music.github.io/read-more-text-toggle",
   "dependencies": {
+    "@formkit/auto-animate": "^1.0.0-beta.1",
     "@testing-library/jest-dom": "latest",
     "@testing-library/react": "latest",
     "@testing-library/user-event": "latest",

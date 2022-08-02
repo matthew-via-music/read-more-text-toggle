@@ -1,26 +1,33 @@
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
+import autoAnimate from "@formkit/auto-animate"
 
 export const ReadMore = (props) => {
-  const [isShown, setIsShown] = useState(false)
+  const [show, setShow] = useState(false)
 
-  const toggleBtn = () => {
-    setIsShown((prevState) => !prevState)
-  }
+  const reveal = () => setShow(!show)
+
+  const parent = useRef(null)
+
+  useEffect(() => {
+    parent.current && autoAnimate(parent.current)
+  }, [parent])
 
   return (
-    <div className="wrapper">
-      <div>
-        <button onClick={toggleBtn}>{isShown ? "-" : "+"}</button>
-      </div>
-      <div className="content">
-        {isShown ? (
-          <div className={props.className}>
-            <img src={props.img} alt={props.img} />
-            {props.text}
-          </div>
-        ) : (
-          `${props.text.substr(0, props.limit)}...`
-        )}
+    <div>
+      <div className="wrapper">
+        <div>
+          <button onClick={reveal}>{show ? "-" : "+"}</button>
+        </div>
+        <div ref={parent} className="content">
+          {show ? (
+            <div className={props.className}>
+              <img src={props.img} alt={props.img} />
+              {props.text}
+            </div>
+          ) : (
+            `${props.text.substr(0, props.limit)}...`
+          )}
+        </div>
       </div>
     </div>
   )
